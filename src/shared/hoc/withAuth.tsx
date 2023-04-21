@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { NextComponentType } from 'next';
-import Login from "@/pages/login";
+import Login from "../../../pages/login";
+
 
 type Props = Record<string, unknown>;
 

@@ -1,4 +1,8 @@
+
+import {ApartmentModelType} from "@/entities/apartment/model/apartmentReducer";
+import {UserModelType} from "@/entities/user/model/userReducer";
+
 export type RootState = {
-    user: UserSliceState;
-    apartments: RoomsSliceState;
-};
+  //  user: UserModelType
+    apartment:ApartmentModelType
+}
