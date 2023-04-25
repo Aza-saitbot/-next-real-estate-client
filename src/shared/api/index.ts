@@ -4,11 +4,15 @@ import axios from 'axios';
 import {UserApi} from "@/shared/api/user-api/UserApi";
 import {ApartmentApi} from "@/shared/api/apartments-api/ApartmentApi";
 import {Store} from "@reduxjs/toolkit";
-import {RootState} from "@/store/types";
+import {RootState} from "@/app/store/types";
+import {AuthApi} from "@/shared/api/auth-api/AuthApi";
 
 // const cookies = parseCookies();
 
-type ApiReturnType = ReturnType<typeof UserApi> & ReturnType<typeof ApartmentApi>;
+type ApiReturnType =
+    ReturnType<typeof UserApi>
+    & ReturnType<typeof ApartmentApi>
+    & ReturnType<typeof AuthApi>
 
 
 export const Api = (ctx: Store<RootState>): ApiReturnType => {

@@ -7,7 +7,7 @@ import {GetStaticPaths, GetStaticProps, GetStaticPropsContext} from "next";
 import {PER_PAGE} from "@/shared/ui/Pagination/config";
 import {Api} from "@/shared/api";
 import {apartmentModel} from "@/entities/apartment/model/apartmentReducer";
-import {wrapper} from "@/store/store";
+import {wrapper} from "@/app/store/store";
 import Head from "next/head";
 import ApartmentsListPage from "@/pages-flat/apartments-list";
 import Header from "@/widgets/Header";

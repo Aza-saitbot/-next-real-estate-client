@@ -4,12 +4,14 @@ import {isDev} from "@/shared/consts/consts";
 import {combineReducers} from "redux";
 import {userReducer} from "@/entities/user/model/userReducer";
 import {apartmentReducer} from "@/entities/apartment/model/apartmentReducer";
-import {RootState} from "@/store/types";
+import {RootState} from "@/app/store/types";
+import {alertReducer} from "@/shared/ui/Alert/alertReducer";
 
 
 const rootReducer = combineReducers({
   //  user: userReducer,
-    apartment: apartmentReducer
+    apartment: apartmentReducer,
+    alerts: alertReducer,
 });
 
 export const makeStore = (): Store<RootState> =>configureStore({

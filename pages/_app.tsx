@@ -1,7 +1,7 @@
 
 import React from 'react';
 import App, { AppContext } from 'next/app';
-import {wrapper} from "@/store/store";
+import {wrapper} from "@/app/store/store";
 
 
 class MyApp extends App {
