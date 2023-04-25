@@ -1,0 +1,13 @@
+{
+  "no": "No",
+  "yes": "Yes",
+  "errors": {
+    "1": "Error validating request data",
+    "100000": "Changes were saved successfully"
+  },
+  "onChangeLanguage": {
+    "ru": "На русском",
+    "en": "In english",
+    "tr": "Türkçe olarak"
+  }
+}

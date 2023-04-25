@@ -1,8 +1,11 @@
 import React from 'react';
+import Cookies from 'js-cookie';
 import {FormProvider, useForm} from "react-hook-form";
 import s from "./style.module.scss";
 import InputStyled from "@/shared/ui/InputStyled";
 import {Button} from "@mui/material";
+import {useAppDispatch} from "@/app/store/store";
+import {createUser} from "@/entities/user/model/userReducer";
 
 
 type SchemaLogin = {
@@ -11,6 +14,7 @@ type SchemaLogin = {
 }
 
 const LoginPage = () => {
+    const dispatch = useAppDispatch();
     const methods = useForm<SchemaLogin>({
         mode: 'onSubmit',
         defaultValues: {
@@ -20,7 +24,7 @@ const LoginPage = () => {
     });
 
     const onSubmit = (data: SchemaLogin) => {
-        console.log('data', data)
+        dispatch(createUser(data));
     }
 
     return (

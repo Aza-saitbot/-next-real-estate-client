@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './Alert.scss';
+import s from './alert.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 // import { useTranslation } from 'react-i18next';
 import { alertsSelector, alertWithClosingSelector } from './alertSelectors';
@@ -14,7 +14,6 @@ const Alert = () => {
   const alertWithCustom = useSelector(alertWithClosingSelector);
 
   const getMessageText = (alert: AlertType | AlertWithClosingType) => {
-
     if (alert.payload) {
       if (typeof(alert.payload) === 'string') {
        // return t(alert.payload);
@@ -43,10 +42,10 @@ const Alert = () => {
   }, [alerts]);
 
   const getStyles = (alert: AlertType | AlertWithClosingType) => {
-    if (alert.color) {
-      return alert.color;
+    if (alert.color && alert.color === 'error') {
+      return s.error
     }
-    return '#2CBA5F';
+    return s.success
   };
 
   const onHandlerClosedAlert = () => {
@@ -54,17 +53,17 @@ const Alert = () => {
   };
 
   return (
-    <div className="alertContainer">
+    <div className={s.alertContainer}>
       {alerts.map((alert) => (
-        <div className="alertContainer__alert" style={{ background: getStyles(alert) }} key={alert.identificator}>
+        <div className={ [s.description, getStyles(alert)].join(' ') } key={alert.identificator}>
           <p>{getMessageText(alert)}</p>
         </div>
       ))}
       {alertWithCustom &&
-        <div className="alertContainer__alert" style={{ background: getStyles(alertWithCustom) }} >
+        <div className={s.alert} style={{ background: getStyles(alertWithCustom) }} >
           {getMessageTitle(alertWithCustom)
             ? (
-              <div className="alertContainer__alert_titled">
+              <div className={s.titled}>
                 <h4>{getMessageTitle(alertWithCustom)}</h4>
                 <p>{getMessageText(alertWithCustom)}</p>
               </div>
@@ -72,7 +71,7 @@ const Alert = () => {
               <p>{getMessageText(alertWithCustom)}</p>
             )
           }
-          <div className="alertContainer__alert__closeIcon" onClick={onHandlerClosedAlert}>
+          <div className={s.closeIcon} onClick={onHandlerClosedAlert}>
             <CloseIcon/>
           </div>
         </div>

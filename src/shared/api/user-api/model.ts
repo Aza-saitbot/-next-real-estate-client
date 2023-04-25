@@ -4,14 +4,17 @@ export interface IRole {
     description: string
 }
 
-export interface IUser {
+export type IUser = {
     id: number
-    email:string
-    password:string
-    ban: boolean
-    banReason: null | string
-    roles: IRole[],
-    posts: string [],
-    basket: null,
-    ratings: []
+    email: string
+    roles: Array<string>
+} | null
+
+export type CreateUserType = {
+    email: string;
+    password: string;
+}
+
+export type ReturnTokenType = {
+    token: string;
 }

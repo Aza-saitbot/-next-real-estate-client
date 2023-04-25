@@ -1,7 +1,7 @@
-
 import React from 'react';
 import App, { AppContext } from 'next/app';
 import {wrapper} from "@/app/store/store";
+import { appWithTranslation } from 'next-i18next'
 
 
 class MyApp extends App {
@@ -16,4 +16,4 @@ class MyApp extends App {
   }
 }
 
-export default wrapper.withRedux(MyApp);
+export default wrapper.withRedux(appWithTranslation(MyApp));

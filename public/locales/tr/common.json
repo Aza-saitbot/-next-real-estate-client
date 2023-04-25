@@ -1,0 +1,13 @@
+{
+  "no":"Hayır",
+  "yes": "Evet",
+  "errors": {
+    "1": "İstek verileri doğrulanırken hata oluştu",
+    "100000": "Değişiklikler başarıyla kaydedildi"
+  },
+  "onChangeLanguage": {
+    "ru": "На русском",
+    "en": "In english",
+    "tr": "Türkçe olarak"
+  }
+}
