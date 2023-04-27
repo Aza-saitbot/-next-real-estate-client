@@ -1,16 +1,12 @@
 import React from 'react';
-import {ApartmentsPageProps} from "@/shared/api/apartments-api/types";
-import ApartmentCard from "@/entities/apartment/ui/apartment-card";
-import Pagination from "@/shared/ui/Pagination";
-import ApartmentsList from "@/entities/apartment/ui/apartments-list";
-import {GetStaticPaths, GetStaticProps, GetStaticPropsContext} from "next";
+import {ApartmentsPageProps} from "@/shared/api/apartments/types";
+import {GetStaticPaths} from "next";
 import {PER_PAGE} from "@/shared/ui/Pagination/config";
-import {Api} from "@/shared/api";
-import {apartmentModel} from "@/entities/apartment/model/apartmentReducer";
 import {wrapper} from "@/app/store/store";
 import Head from "next/head";
 import ApartmentsListPage from "@/pages-flat/apartments-list";
 import Header from "@/widgets/Header";
+import * as api from "@/shared/api";
 
 function PaginatedPage(props: ApartmentsPageProps) {
     return (
@@ -31,8 +27,7 @@ function PaginatedPage(props: ApartmentsPageProps) {
 export const getStaticProps = wrapper.getStaticProps(async ({store, params}) => {
     try {
         const page = Number(params?.page) || 1
-        const payload = await Api(store).getApartments({limit: PER_PAGE, page})
-        store.dispatch(apartmentModel.actions.setApartments(payload))
+        const payload = await api.apartments.getApartments({limit: PER_PAGE, page})
 
         if (!payload.apartments.length) {
             return {
@@ -67,11 +62,9 @@ export const getStaticProps = wrapper.getStaticProps(async ({store, params}) => 
 });
 
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
     return {
-        // Prerender the next 5 pages-flat after the first page, which is handled by the index page.
-        // Other pages-flat will be prerendered at runtime.
-        paths: Array.from({length: 5}).map((_, i) => `/${i + 2}`),
+         paths: Array.from({length: 5}).map((_, i) => `/${i + 2}`),
         // Block the request for non-generated pages-flat and cache them in the background
         fallback: 'blocking',
     }

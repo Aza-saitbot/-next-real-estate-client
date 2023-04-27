@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './apartments-list.module.scss';
-import {IApartment} from "@/shared/api/apartments-api/model";
+import {IApartment} from "@/shared/api/apartments/model";
 import ApartmentCard from "@/entities/apartment/ui/apartment-card";
 
 type ApartmentsListProps = {

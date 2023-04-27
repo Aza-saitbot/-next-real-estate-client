@@ -22,3 +22,8 @@ export interface IApartment {
     employeeId: number
     images:Array<IImage>
 }
+
+export type ApartmentModelType ={
+    apartments:IApartment[]
+    total:number
+}

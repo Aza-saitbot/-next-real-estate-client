@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import {IUser} from "@/shared/api/user-api/model";
+import {IUser} from "@/shared/api/user/model";
 
 export const getDecodedAccessToken = (token: string): IUser => {
     try {

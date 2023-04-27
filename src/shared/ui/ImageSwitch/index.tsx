@@ -1,7 +1,7 @@
 import {useState} from 'react';
-import Image from "next/image";
+
 import style from './image-switch.module.scss';
-import {IImage} from "@/shared/api/apartments-api/model";
+import {IImage} from "@/shared/api/apartments/model";
 
 interface IImageSwitcher {
     images: IImage[]
