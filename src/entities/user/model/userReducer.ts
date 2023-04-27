@@ -5,7 +5,7 @@ import {RootState} from "@/app/store/types";
 
 import {Api} from "@/shared/api";
 import {getDecodedAccessToken} from "@/shared/api/user-api/lib";
-import {CreateUserType} from "@/shared/api/user-api/model";
+import {CreateUserType, ReturnTokenType} from "@/shared/api/user-api/model";
 import {addAlertWithCustomText} from "@/shared/ui/Alert/alertReducer";
 
 
@@ -14,6 +14,7 @@ export const createUser = createAsyncThunk<IUser, CreateUserType, { rejectValue:
         try {
             const {data: {token}} = await Api().createUser(requestOptions)
             const user = getDecodedAccessToken(token)
+            dispatch(setUserData(user))
             return user
         } catch (e:any) {
             const message:string = e.response.data.message ? e.response.data.message : 'Не удалось создать пользователя'
@@ -46,9 +47,7 @@ const userModel = createSlice({
             .addCase(HYDRATE as any, (state, action: PayloadAction<RootState>) => {
                 state.user = action.payload.user.user
             })
-            .addCase(createUser.fulfilled, (state, action) => {
-                state.user = action.payload
-            })
+
     }
 });
 

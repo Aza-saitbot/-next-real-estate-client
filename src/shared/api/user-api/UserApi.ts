@@ -1,5 +1,6 @@
 import {AxiosInstance, AxiosResponse} from "axios";
-import {CreateUserType, ReturnTokenType} from "@/shared/api/user-api/model";
+import {CreateUserType, IUser, ReturnTokenType} from "@/shared/api/user-api/model";
+import {getDecodedAccessToken} from "@/shared/api/user-api/lib";
 
 
 

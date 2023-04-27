@@ -17,17 +17,17 @@ export const apartmentModel = createSlice({
     initialState,
     reducers: {
         setApartments: (state, action: PayloadAction<ApartmentModelType>) => {
-            console.log('action.payload',action.payload)
+            console.log('1111111 apartmentModel action.payload',action.payload)
             state.apartments = action.payload.apartments
             state.total = action.payload.total
         },
     },
     extraReducers: (builder) =>
         builder.addCase(HYDRATE as any, (state, action: PayloadAction<ApartmentModelType>) => {
-            console.log('action.payload',action.payload)
+            console.log('22222222222 apartmentModel action.payload',action.payload)
             state.apartments = action.payload.apartments
             state.total = action.payload.total
         }),
 });
-
+export const {setApartments} = apartmentModel.actions;
 export const apartmentReducer = apartmentModel.reducer;
