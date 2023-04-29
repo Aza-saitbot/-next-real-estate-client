@@ -1,18 +1,34 @@
 import React from 'react';
 import style from './header.module.scss';
-import Link from "next/link";
+import * as api from '@/shared/api';
 import {useRouter} from "next/router";
+import {useAppSelector} from "@/app/store/store";
 
 const Header = () => {
     const router = useRouter()
-    const onLogin = () => {
-        router.push('/login')
+    const user = useAppSelector(state => state.user.user)
+    const onHandlerExit = async () => {
+        await router.push('/admin')
+    }
+
+    const onLogin = async () => {
+        api.auth.logout()
+        await router.push('/login')
+    }
+    const onHome = async () => {
+        await router.push('/')
     }
     return (
         <div className={style.header}>
-            <div>Home</div>
+            <div>
+                <button onClick={onHome}>Home</button>
+            </div>
             <div className={style.login}>
-                <button onClick={onLogin}>Login</button>
+                <div>
+                    {user?.fullName}
+                </div>
+                {user && <button onClick={onLogin}>Выйти</button>}
+                {!user && <button onClick={onHandlerExit}>Войти</button>}
             </div>
         </div>
     );

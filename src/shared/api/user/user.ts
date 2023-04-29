@@ -1,6 +1,7 @@
-import {CreateUserType, ReturnTokenType} from "@/shared/api/user/model";
+
 import axios from "@/shared/api/core/axios";
+import {GetMeResponse} from "@/shared/api/user/dto/get-me.dto";
 
-export const createUser = async (requestOptions: CreateUserType): Promise<ReturnTokenType> =>
-    (await axios.post<ReturnTokenType>('/auth/registration',requestOptions)).data
-
+export const getMe = async ():Promise<GetMeResponse> => {
+    return (await axios.get<GetMeResponse>('/users/me')).data
+}

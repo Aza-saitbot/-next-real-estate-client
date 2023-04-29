@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
-import {createUser} from "@/entities/user/model/userReducer";
 
 export type AlertType = {
   code?: number;
@@ -51,18 +50,18 @@ const alertModel = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createUser.rejected, (state, action) => {
-        state.alerts.push({
-          code: action.payload!,
-          identificator: generateId(),
-        });
-      })
-      .addCase(createUser.fulfilled, (state) => {
-        state.alerts.push({
-          code: 100000,
-          identificator: generateId(),
-        });
-      })
+      // .addCase(createUser.rejected, (state, action) => {
+      //   state.alerts.push({
+      //     code: action.payload!,
+      //     identificator: generateId(),
+      //   });
+      // })
+      // .addCase(createUser.fulfilled, (state) => {
+      //   state.alerts.push({
+      //     code: 100000,
+      //     identificator: generateId(),
+      //   });
+      // })
   },
 });
 
