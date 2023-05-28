@@ -6,11 +6,13 @@ import {userReducer} from "@/entities/user/model/userReducer";
 import {RootState} from "@/app/store/types";
 import {alertReducer} from "@/shared/ui/Alert/alertReducer";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {apartmentReducer} from "@/entities/apartment/model";
 
 
 const rootReducer = combineReducers({
     user: userReducer,
     alerts: alertReducer,
+    apartment: apartmentReducer
 })
 
 const store = configureStore({

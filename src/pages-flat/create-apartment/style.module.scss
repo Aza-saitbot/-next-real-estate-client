@@ -1,0 +1,40 @@
+.createApartment {
+  padding: 20px;
+  display: grid;
+  min-height: 80vh;
+  position: relative;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  background-color: #ECEFF3;
+}
+.headerButtons{
+  display: flex;
+  column-gap: 8px;
+}
+
+.list {
+  display: grid;
+  row-gap: 15px;
+  margin: 15px 0;
+}
+
+.listDropdowns {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.widthInput {
+  width: 300px;
+}

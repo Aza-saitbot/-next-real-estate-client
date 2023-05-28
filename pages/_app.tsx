@@ -1,8 +1,8 @@
 import React from 'react';
+import '../styles/styles.css'
 import App, {AppContext} from 'next/app';
 import {wrapper} from "@/app/store/store";
 import {appWithTranslation} from 'next-i18next'
-import Alert from "@/shared/ui/Alert/Alert";
 
 
 class MyApp extends App {
@@ -15,7 +15,6 @@ class MyApp extends App {
         const {Component, pageProps} = this.props;
         // @ts-ignore
         return <>
-            <Alert/>
             <Component {...pageProps} />
         </>
     }

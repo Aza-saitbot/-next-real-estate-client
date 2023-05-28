@@ -38,6 +38,7 @@ export const getStaticProps = wrapper.getStaticProps(async ({store, params}) => 
             return {
                 redirect: {
                     destination: '/',
+                    locale:true,
                     permanent: false,
                 },
             }
@@ -56,6 +57,7 @@ export const getStaticProps = wrapper.getStaticProps(async ({store, params}) => 
         props: {},
         redirect: {
             destination: '/',
+            locale:true,
             permanent: false,
         }
     };

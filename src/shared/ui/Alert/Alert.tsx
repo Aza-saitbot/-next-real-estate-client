@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import s from './alert.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
-// import { useTranslation } from 'react-i18next';
 import {alertsSelector, alertWithClosingSelector} from './alertSelectors';
 import {removeAlert, setAlertWithClosing, AlertType, AlertWithClosingType} from './alertReducer';
 import CloseIcon from '../../assets/cross-white.svg';
@@ -12,7 +11,7 @@ const Alert = () => {
     const dispatch = useDispatch();
     const alerts = useSelector(alertsSelector);
     const alertWithCustom = useSelector(alertWithClosingSelector);
-    const {t} = useTranslation('common');
+    const {t} = useTranslation();
 
     const getMessageText = (alert: AlertType | AlertWithClosingType) => {
         if (alert.code) {
@@ -20,13 +19,11 @@ const Alert = () => {
         }
         if (alert.payload) {
             if (typeof (alert.payload) === 'string') {
-                console.log('1111111', alert.payload)
                 return t(alert.payload);
             }
-            console.log('22222', alert.payload)
             return t(alert.payload.text)
         }
-        return '4';
+        return 'Неизвестная ошибка';
     };
 
     const getMessageTitle = (alert: AlertWithClosingType) => {

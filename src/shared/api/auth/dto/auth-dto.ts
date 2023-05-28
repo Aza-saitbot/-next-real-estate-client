@@ -9,6 +9,13 @@ export type RegisterFormDTO = {
     fullName: string
 }
 
+export type AuthUserDTO = {
+    url: 'login' | 'registration'
+    email: string
+    password: string
+    fullName?: string
+}
+
 export type LoginResponseDTO = {
     token: string
 }

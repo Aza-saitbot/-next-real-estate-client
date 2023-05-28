@@ -5,23 +5,20 @@ import Pagination from "@/shared/ui/Pagination";
 import ApartmentsList from "@/entities/apartment/ui/apartments-list";
 import {PER_PAGE} from "@/shared/ui/Pagination/config";
 import {useTranslation} from "next-i18next";
-import {useRouter} from "next/router";
+import EmptyList from "@/shared/ui/EmptyList/EmptyList";
 
 const ApartmentsListPage = ({apartments,total,currentPage}:ApartmentsListProps) => {
-    const { t,i18n } = useTranslation()
-    const router = useRouter()
+    const { t } = useTranslation()
+    const isEmpty = !apartments
+
+    if (isEmpty){
+        return <EmptyList text='Скоро на сайте появится информация о недвижимости' />
+    }
+
     return (
         <div>
-            <form action="" >
-                <select name="local" id="local" onChange={event => router.push('/','/',{locale:event.target.value})} >
-                    <option value="en">English</option>
-                    <option value="tr">Turkish</option>
-                    <option value="ru">Russia</option>
-                </select>
-                <button type='submit'>Поменять язык</button>
-            </form>
-            {t('yes')}
             <h1>Page {currentPage}</h1>
+            {t('yes')}
             <Pagination
                 totalItems={total}
                 currentPage={currentPage}
