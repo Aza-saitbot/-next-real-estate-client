@@ -1,10 +1,8 @@
 import nookies from "nookies";
 import axios from "@/shared/api/core/axios";
 import * as api from "@/shared/api";
-
 import {setUserData} from "@/entities/user/model/userReducer";
-import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-import {GetServerSidePropsType} from "../../../../pages/user";
+import {GetServerSidePropsType} from "@/shared/types/types";
 
 export const checkAuth = async (ctx:GetServerSidePropsType) => {
     const {_token} = nookies.get(ctx)

@@ -1,10 +1,11 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IApartment} from "@/shared/api/models";
 import {IEmployee} from "@/shared/api/employee/model";
 import {ICategory} from "@/shared/api/category/model";
 import {RootState} from "@/app/store/types";
 import {HYDRATE} from "next-redux-wrapper";
-import {ResponseGetApartments} from "@/shared/api/apartments/dto/apartment-dto";
+import {IParamsGetOneApartment, ResponseGetApartments} from "@/shared/api/apartments/dto/apartment-dto";
+import * as api from "@/shared/api";
 
 
 export type ApartmentModelType = {
@@ -19,6 +20,16 @@ const initialState: ApartmentModelType = {
     employees:[],
     categories:[]
 }
+
+export const getOneApartment = createAsyncThunk<IApartment, string, { rejectValue: number; }>(
+    'apartment/getOneApartment', async (id, { rejectWithValue }) => {
+        try {
+            return await api.apartments.getOneApartmentAPI(id)
+        } catch (e:any) {
+            return rejectWithValue(e.response.data.error_code)
+        }
+    }
+);
 
 const apartmentModel = createSlice({
     name: 'apartment',

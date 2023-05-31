@@ -16,6 +16,6 @@ export type AuthUserDTO = {
     fullName?: string
 }
 
-export type LoginResponseDTO = {
+export type AuthResponseDTO = {
     token: string
 }

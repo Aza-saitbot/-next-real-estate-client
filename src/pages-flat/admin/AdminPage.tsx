@@ -2,7 +2,8 @@ import React from 'react';
 import s from './styles.module.scss';
 import {Button} from "@mui/material";
 import {useRouter} from "next/router";
-import {TableApartments} from "@/entities/admin";
+import TableApartments from "@/entities/admin/ui/TableApartments/table-apartments";
+
 
 const AdminPage = () => {
     const router = useRouter()

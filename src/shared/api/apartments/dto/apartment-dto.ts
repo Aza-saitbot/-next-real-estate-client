@@ -11,3 +11,6 @@ export type IParamsGetApartments = {
     limit:number
     page:number
 }
+export type IParamsGetOneApartment = {
+    id:string
+}

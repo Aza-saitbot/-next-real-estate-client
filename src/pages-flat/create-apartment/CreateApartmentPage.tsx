@@ -9,6 +9,7 @@ import {SchemaApartmentFormType} from "@/shared/api/apartments/model";
 import Input from "@/shared/ui/Input";
 import DragBar from "@/shared/ui/DragBar/DragBar";
 import {useRouter} from "next/router";
+import {EditApartmentProps} from "../../../pages/admin/[id]";
 
 const listCurrency = [
     {id: 1, name: 'USD'},
@@ -37,7 +38,7 @@ const defaultValues: SchemaApartmentFormType = {
     images: []
 }
 
-const CreateApartmentPage = () => {
+const CreateApartmentPage = ({editApartment}:EditApartmentProps) => {
     const {t, i18n} = useTranslation()
     const router = useRouter()
     const methods = useForm<SchemaApartmentFormType>({

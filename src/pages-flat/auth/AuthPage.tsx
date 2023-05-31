@@ -8,6 +8,8 @@ import {setCookie} from "nookies";
 import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
 import {AuthUserDTO} from "@/shared/api/auth/dto/auth-dto";
+import {authThunk} from "@/entities/user/model/userReducer";
+import {useAppDispatch} from "@/app/store/store";
 
 
 type SchemaLogin = {
@@ -19,6 +21,7 @@ type SchemaLogin = {
 const LoginPage = () => {
     const router = useRouter()
     const {locale} = router
+    const dispatch = useAppDispatch()
     const {t, i18n} = useTranslation()
     const [modeAuth, setModeAuth] = useState<'login' | 'registration'>('login')
     const isModeLogin = modeAuth === 'login'
@@ -39,12 +42,10 @@ const LoginPage = () => {
             url: modeAuth,
         }
         if (data.fullName) payload.fullName = data.fullName
-
-        try {
-            const {token} = await api.auth.toggle(payload)
-            setCookie(null, "_token", token, {path: '/'})
+        const res = await dispatch(authThunk(payload))
+        if (res.meta.requestStatus === 'fulfilled') {
             await router.push('/admin', '/admin', {locale})
-        } catch (e: any) {}
+        }
     }
 
     const optionsFillName = isModeLogin ? {} : {
