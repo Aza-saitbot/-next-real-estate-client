@@ -9,14 +9,14 @@
   position: sticky;
   top: 0;
   left: 0;
-  width: 100%;
   height: 60px;
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 10;
-  background-color: #ECEFF3;
+  background-color: white;
+  border-bottom:3px solid #ECEFF3;
 }
 .headerButtons{
   display: flex;

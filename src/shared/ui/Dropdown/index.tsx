@@ -7,12 +7,11 @@ import {SelectProps} from "@mui/material/Select/Select";
 
 
 type DropdownProps = {
-    list:{id:number,name:string}[]
+    list:{value:string,name:string}[]
     name:string
     label:string
 } & SelectProps
 const Dropdown = ({name,list,label,...props}:DropdownProps) => {
-
     const {control} = useFormContext()
     return (
         <FormControl>
@@ -31,14 +30,13 @@ const Dropdown = ({name,list,label,...props}:DropdownProps) => {
                         displayEmpty
                         {...field}
                         fullWidth
-
                         input={<OutlinedInput label={label} />}
                     >
-                        {field.value === 0 && <MenuItem disabled={true} value={0}>
+                        {field.value === 'NOT_SELECTED' && <MenuItem disabled={true} value='NOT_SELECTED'>
                             Выбрать
                         </MenuItem>}
                         {list.map((item) => (
-                            <MenuItem key={item.id} value={item.id}>
+                            <MenuItem key={item.value} value={item.value}>
                                 {item.name}
                             </MenuItem>
                         ))}

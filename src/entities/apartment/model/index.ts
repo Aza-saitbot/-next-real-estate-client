@@ -4,7 +4,11 @@ import {IEmployee} from "@/shared/api/employee/model";
 import {ICategory} from "@/shared/api/category/model";
 import {RootState} from "@/app/store/types";
 import {HYDRATE} from "next-redux-wrapper";
-import {IParamsGetOneApartment, ResponseGetApartments} from "@/shared/api/apartments/dto/apartment-dto";
+import {
+    CreateApartmentDTO,
+    IParamsGetOneApartment,
+    ResponseGetApartments
+} from "@/shared/api/apartments/dto/apartment-dto";
 import * as api from "@/shared/api";
 
 
@@ -20,6 +24,26 @@ const initialState: ApartmentModelType = {
     employees:[],
     categories:[]
 }
+
+export const createApartment = createAsyncThunk<IApartment,  FormData, { rejectValue: number; }>(
+    'apartment/createApartment', async (requestOptions, { rejectWithValue }) => {
+        try {
+            return await api.apartments.createApartmentAPI(requestOptions)
+        } catch (e:any) {
+            return rejectWithValue(e.response.data.error_code)
+        }
+    }
+);
+
+export const getAllApartments = createAsyncThunk<IApartment[],  void, { rejectValue: number; }>(
+    'apartment/getAllApartments', async (requestOptions, { rejectWithValue }) => {
+        try {
+            return await api.apartments.getAllApartmentsAPI()
+        } catch (e:any) {
+            return rejectWithValue(e.response.data.error_code)
+        }
+    }
+);
 
 export const getOneApartment = createAsyncThunk<IApartment, string, { rejectValue: number; }>(
     'apartment/getOneApartment', async (id, { rejectWithValue }) => {

@@ -2,9 +2,14 @@ import React, {useState} from 'react';
 import s from './style.module.scss';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import {useFormContext} from "react-hook-form";
+import {IImage} from "@/shared/api/apartments/model";
 
 
-const DragBar = () => {
+interface IDragBar {
+    images: IImage[]
+}
+
+const DragBar = ({images}: IDragBar) => {
     const {setValue} = useFormContext()
     const [drag, setDrag] = useState(false)
     const [currentFiles, setCurrentFiles] = useState<Array<File>>([])
@@ -17,31 +22,31 @@ const DragBar = () => {
     //
     // }
 
-    function dragStartHandler(e: React.DragEvent<HTMLDivElement>) {
+    const dragStartHandler = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault()
         setDrag(true)
-    }
+    };
 
-    function dragLeaveHandler(e: React.DragEvent<HTMLDivElement>) {
+    const dragLeaveHandler = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault()
         setDrag(false)
-    }
+    };
 
     const setFiles = (files: File[]) => {
         setCurrentFiles(files)
         setValue('images', files)
     }
 
-    function onDropHandler(e: React.DragEvent<HTMLDivElement>) {
+    const onDropHandler = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault()
         // @ts-ignore
         let files = [...e.dataTransfer.files]
 
         setFiles(files)
         setDrag(false)
-    }
+    };
 
-    const removeImage = (removeFile:File) => {
+    const removeImage = (removeFile: File) => {
         setFiles(currentFiles.filter((f: File) => f !== removeFile))
     }
 
@@ -57,8 +62,7 @@ const DragBar = () => {
                                 onDragLeave={e => dragLeaveHandler(e)}
                                 onDragOver={e => dragStartHandler(e)}
                                 onDrop={e => onDropHandler(e)}
-                                className={s.area}><p>Отпустите
-                                файлы, что бы загрузить их</p></div>
+                                className={s.area}><p>Отпустите файлы, что бы загрузить их</p></div>
                             : <div
                                 onDragStart={e => dragStartHandler(e)}
                                 onDragLeave={e => dragLeaveHandler(e)}
@@ -69,25 +73,18 @@ const DragBar = () => {
                                         {currentFiles.map((i, index) => {
                                             let imgUrl = URL.createObjectURL(i)
                                             return (
-                                                <div key={index}
-                                                     className={s.previewItem}>
-                                                    <div
-                                                        className={s.previewItemImg}>
+                                                <div key={index} className={s.previewItem}>
+                                                    <div className={s.previewItemImg}>
                                                         <img src={imgUrl} alt='image'/>
-                                                        <DeleteOutlineOutlinedIcon
-                                                            onClick={() => removeImage(i)}
-                                                            fontSize={"small"}
-                                                            className={s.previewItemImgIcon}
-                                                        />
+                                                        <DeleteOutlineOutlinedIcon onClick={() => removeImage(i)}
+                                                            fontSize={"small"} className={s.previewItemImgIcon}/>
                                                     </div>
                                                 </div>
                                             )
                                         })}
                                     </div>
                                     {currentFiles.length === 0 &&
-                                        <div
-                                            className={s.moveTitle}
-                                        >Перетащите файлы, чтобы загрузить их</div>
+                                        <div className={s.moveTitle}>Перетащите файлы, чтобы загрузить их</div>
                                     }
                                 </div>
                             </div>

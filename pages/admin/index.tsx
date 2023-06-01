@@ -6,13 +6,16 @@ import AdminPage from "@/pages-flat/admin/AdminPage";
 import Header from "@/widgets/Header";
 import Alert from "@/shared/ui/Alert/Alert";
 import {GetServerSidePropsType} from "@/shared/types/types";
+import {IApartment} from "@/shared/api/apartments/model";
+import {setApartments} from "@/entities/apartment/model";
+import {getCategoriesEmployees} from "@/shared/api/apartments/getCategoriesEmployees";
 
-const Admin = () => {
+const Admin = (listApartments?:IApartment[]) => {
     return (
         <>
             <Alert/>
             <Header/>
-            <AdminPage/>
+            <AdminPage listApartments={listApartments}/>
         </>
     );
 };
@@ -25,6 +28,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (ctx: GetServ
     }
     const translationObj = {...(await serverSideTranslations(ctx.locale, ['common']))}
     const isAdmin = ctx.store.getState().user.user.roles.includes('ADMIN')
+
     if (!isAdmin) {
         return {
             redirect: {
@@ -36,8 +40,23 @@ export const getServerSideProps = wrapper.getServerSideProps(async (ctx: GetServ
         }
     }
 
-    return {
-        props: {...translationObj}
+    try {
+        const listApartments = await api.apartments.getAllApartmentsAPI()
+        await getCategoriesEmployees(ctx)
+        ctx.store.dispatch(setApartments({
+            apartments:listApartments,
+            total:listApartments.length
+        }))
+        return {
+            props: {
+                ...translationObj,
+                listApartments
+            }
+        }
+    }catch (e) {
+        return {
+            props: {...translationObj}
+        }
     }
 })
 

@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {DataGrid, GridCellParams, GridColDef, GridValueGetterParams} from '@mui/x-data-grid';
 import {EditableCell} from "@/entities/admin/ui/EditableCell/EditableCell";
 import {useRouter} from "next/router";
+import {useAppSelector} from "@/app/store/store";
+import {IApartment} from "@/shared/api/apartments/model";
 
 const rows = [
     { id: 117, lastName: 'Нажми сюда', title: '117 Пользователь', age: 35 },
@@ -18,10 +20,17 @@ const rows = [
 
 const TableApartments = () => {
     const router = useRouter()
+    const listApartments = useAppSelector(state => state.apartment.apartments)
+    // const employees = useAppSelector(state => state.apartment.employees)
+    // const categories = useAppSelector(state => state.apartment.categories)
+
+
 
      const handleSave = async (id: number) => {
         await router.push(`/admin/${id}`)
     };
+    // categoryId: number
+    // employeeId: number
 
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'ID', width: 70 },
@@ -30,28 +39,17 @@ const TableApartments = () => {
                 <EditableCell value={params.value as string} id={params.id as number} onSave={handleSave} />
             ),
         },
-        { field: 'lastName', headerName: 'Last name', width: 130 },
-        {
-            field: 'age',
-            headerName: 'Age',
-            type: 'number',
-            width: 90,
-        },
-        {
-            field: 'fullName',
-            headerName: 'Full name',
-            description: 'This column has a value getter and is not sortable.',
-            sortable: false,
-            width: 160,
-            valueGetter: (params: GridValueGetterParams) =>
-                `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-        },
+        { field: 'price', headerName: 'Цена', type:'number', width: 100 },
+        { field: 'currency', headerName: 'Валюта', width: 70 },
+        { field: 'address', headerName: 'Адрес', width: 130 },
+        // { field: 'name', headerName: 'Название сотрудника', width: 130 },
+        // { field: 'name', headerName: 'Статус', width: 130 },
     ];
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
             <DataGrid
-                rows={rows}
+                rows={listApartments}
                 columns={columns}
                 initialState={{
                     pagination: {
@@ -66,3 +64,13 @@ const TableApartments = () => {
 };
 
 export default TableApartments;
+
+// {
+//     field: 'fullName',
+//         headerName: 'Full name',
+//     description: 'This column has a value getter and is not sortable.',
+//     sortable: false,
+//     width: 160,
+//     valueGetter: (params: GridValueGetterParams) =>
+//     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+// },

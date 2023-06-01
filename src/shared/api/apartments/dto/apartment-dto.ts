@@ -14,3 +14,5 @@ export type IParamsGetApartments = {
 export type IParamsGetOneApartment = {
     id:string
 }
+
+export type CreateApartmentDTO = Omit<IApartment,'id' | 'images'> & {images:File[]}

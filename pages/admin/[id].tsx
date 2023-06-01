@@ -78,7 +78,6 @@ export const getServerSideProps = wrapper.getServerSideProps(async (ctx: GetServ
             props: {...translationObj}
         }
     }
-
 })
 
 export default EditApartment;

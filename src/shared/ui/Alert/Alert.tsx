@@ -3,7 +3,7 @@ import s from './alert.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {alertsSelector, alertWithClosingSelector} from './alertSelectors';
 import {removeAlert, setAlertWithClosing, AlertType, AlertWithClosingType} from './alertReducer';
-import CloseIcon from '../../assets/cross-white.svg';
+import CloseIcon from '../../../../public/assets/cross-white.svg';
 import {useTranslation} from "next-i18next";
 
 

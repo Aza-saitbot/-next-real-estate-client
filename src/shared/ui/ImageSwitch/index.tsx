@@ -1,14 +1,22 @@
 import {useState} from 'react';
-
+import Image from "next/image";
 import style from './image-switch.module.scss';
 import {IImage} from "@/shared/api/apartments/model";
+import EmptyImage from '../../../../public/assets/not_image.jpeg';
+
 
 interface IImageSwitcher {
-    images: IImage[]
+    images?: IImage[]
 }
 
 const ImageSwitcher = ({images}: IImageSwitcher) => {
     const [activeIndex, setActiveIndex] = useState(0);
+
+    if (!images) {
+        return  <div className={style.imageSwitch}>
+            <Image width={300} height={300} src={EmptyImage} alt='not image'/>
+        </div>
+    }
 
     const handleNext = () => {
         setActiveIndex((activeIndex + 1) % images.length);

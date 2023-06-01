@@ -4,7 +4,7 @@ import style from './apartment-card.module.scss';
 import Image from "next/image";
 import ImageSwitcher from "@/shared/ui/ImageSwitch";
 
-const ApartmentCard = ({title,price,district,totalAre,images}:IApartment) => {
+const ApartmentCard = ({title,price,images,address}:IApartment) => {
 
     return (
         <div className={style.apartmentCard}>
@@ -18,10 +18,7 @@ const ApartmentCard = ({title,price,district,totalAre,images}:IApartment) => {
                 Стоимость: {price}
             </div>
             <div>
-                Район:{district}
-            </div>
-            <div>
-               Площадь: {totalAre}
+                Адрес: {address}
             </div>
         </div>
     );
