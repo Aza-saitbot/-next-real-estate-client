@@ -56,7 +56,7 @@ const CreateApartmentPage = ({editApartment}: EditApartmentProps) => {
         address: editApartment?.address ?? '',
         category: initialValueCategory,
         employee: initialValueEmployee,
-        images: []
+        images: editApartment?.images ?? []
     }
     const methods = useForm<SchemaApartmentFormType>({
         mode: 'onSubmit',
@@ -87,39 +87,44 @@ const CreateApartmentPage = ({editApartment}: EditApartmentProps) => {
 
     }
 
+    const onHandlerClearImages = () => {
+        console.log('onHandlerClearImages')
+      methods.setValue('images', [])
+    }
+
     return (
-        <div className={s.createApartment}>
-            <FormProvider {...methods}>
-                <form onSubmit={methods.handleSubmit(onHandlerSave)}>
-                    <div>
-                        <div className={s.header}>
-                            <h1> {editApartment ? editApartment.title : 'Добавить недвижимость'}</h1>
-                            <div className={s.headerButtons}>
-                                <Button variant="outlined" type='reset' onClick={onHandlerReset}>Отменить</Button>
-                                <Button type='submit' variant="contained">Сохранить</Button>
+        <div className={s.wrapper}>
+            <div className={s.createApartment}>
+                <FormProvider {...methods}>
+                    <form onSubmit={methods.handleSubmit(onHandlerSave)}>
+                        <div>
+                            <div className={s.header}>
+                                <h1> {editApartment ? editApartment.title : 'Добавить недвижимость'}</h1>
+                                <div className={s.headerButtons}>
+                                    <Button variant="outlined" type='reset' onClick={onHandlerReset}>Отменить</Button>
+                                    <Button type='submit' variant="contained">Сохранить</Button>
+                                </div>
                             </div>
-                        </div>
-                        <div className={s.listDropdowns}>
-                            <Dropdown className={s.widthInput} name='employee' list={employees} label='Сотрудники'/>
-                            <Dropdown className={s.widthInput} name='category' list={categories} label='Категории'/>
-                        </div>
-                        <div className={s.list}>
-                            <Input className={s.widthInput} name="title" label="title"/>
-                            <Dropdown className={s.widthInput} name="currency" list={listCurrency} label='Валюта'/>
-                            <Input className={s.widthInput} name="price" label="price" type='number'/>
-                            <Input className={s.widthInput} name="address" label="address"/>
-                            <div>
-                                <h3>Gallery</h3>
+                            <div className={s.list}>
+                                <Dropdown className={s.widthInput} name='employee' list={employees} label='Сотрудники'/>
+                                <Dropdown className={s.widthInput} name='category' list={categories} label='Категории'/>
+                                <Input className={s.widthInput} name="title" label="title"/>
+                                <Dropdown className={s.widthInput} name="currency" list={listCurrency} label='Валюта'/>
+                                <Input className={s.widthInput} name="price" label="price" type='number'/>
+                                <Input className={s.widthInput} name="address" label="address"/>
+                                <div>
+                                    <h3>Gallery</h3>
+                                </div>
+                                {editApartment
+                                    ? <Gallery {...methods} onHandlerClearImages={onHandlerClearImages}/>
+                                    : <DragBar/>
+                                }
                             </div>
-                            {editApartment
-                            ? <Gallery images={editApartment.images}/>
-                            : <DragBar/>
-                            }
+                            <Button onClick={onHandlerCreateField} type='button' variant='outlined'>Добавить поле</Button>
                         </div>
-                        <Button onClick={onHandlerCreateField} type='button' variant='outlined'>Добавить поле</Button>
-                    </div>
-                </form>
-            </FormProvider>
+                    </form>
+                </FormProvider>
+            </div>
         </div>
     )
 };

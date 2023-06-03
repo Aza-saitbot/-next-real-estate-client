@@ -16,7 +16,7 @@ import {getOneApartment} from "@/entities/apartment/model";
 import {addAlertWithCustomText} from "@/shared/ui/Alert/alertReducer";
 
 export type EditApartmentProps = {
-    editApartment: IApartment
+    editApartment?: IApartment
 }
 const EditApartment = ({editApartment}: EditApartmentProps) => {
     return (
