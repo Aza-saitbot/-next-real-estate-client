@@ -4,12 +4,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import {useFormContext} from "react-hook-form";
 import {IImage} from "@/shared/api/apartments/model";
 
-
-interface IDragBar {
-    images: IImage[]
-}
-
-const DragBar = ({images}: IDragBar) => {
+const DragBar = () => {
     const {setValue} = useFormContext()
     const [drag, setDrag] = useState(false)
     const [currentFiles, setCurrentFiles] = useState<Array<File>>([])

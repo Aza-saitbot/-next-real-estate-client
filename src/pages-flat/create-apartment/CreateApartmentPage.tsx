@@ -11,6 +11,7 @@ import DragBar from "@/shared/ui/DragBar/DragBar";
 import {useRouter} from "next/router";
 import {EditApartmentProps} from "../../../pages/admin/[id]";
 import {createApartment} from "@/entities/apartment/model";
+import Gallery from "@/entities/gallery/Gallery";
 
 const listCurrency = ['USD', 'EUR', 'RUB', 'TRY'].map(currency => ({value: currency, name: currency}))
 
@@ -107,7 +108,13 @@ const CreateApartmentPage = ({editApartment}: EditApartmentProps) => {
                             <Dropdown className={s.widthInput} name="currency" list={listCurrency} label='Валюта'/>
                             <Input className={s.widthInput} name="price" label="price" type='number'/>
                             <Input className={s.widthInput} name="address" label="address"/>
-                            <DragBar image={editApartment?.images}/>
+                            <div>
+                                <h3>Gallery</h3>
+                            </div>
+                            {editApartment
+                            ? <Gallery images={editApartment.images}/>
+                            : <DragBar/>
+                            }
                         </div>
                         <Button onClick={onHandlerCreateField} type='button' variant='outlined'>Добавить поле</Button>
                     </div>
