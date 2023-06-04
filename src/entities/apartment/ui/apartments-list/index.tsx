@@ -7,9 +7,11 @@ type ApartmentsListProps = {
     apartments: Array<IApartment>
 }
 const ApartmentsList = ({apartments}:ApartmentsListProps) => {
+    const list = [...apartments,...apartments,...apartments,...apartments,...apartments,...apartments,...apartments]
+
     return (
         <div className={style.apartmentsList}>
-            {apartments?.map(apartment =>
+            {list?.map(apartment =>
                 <ApartmentCard key={apartment.id} {...apartment} />
             )}
         </div>

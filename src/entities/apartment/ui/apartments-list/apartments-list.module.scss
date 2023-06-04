@@ -1,5 +1,9 @@
+@import "./styles/mixins.scss";
+
 .apartmentsList {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap:40px;
+    gap:24px;
+
+
 }

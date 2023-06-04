@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {IApartment} from "@/shared/api/models";
 import style from './apartment-card.module.scss';
 import Image from "next/image";
-import ImageSwitcher from "@/shared/ui/ImageSwitch";
+import ImageSlider from "@/shared/ui/ImageSlider";
+import useResizeObserver from "@/shared/hooks/useResizeObserver";
 
 const ApartmentCard = ({title,price,images,address}:IApartment) => {
 
+    const list = [...images,...images,...images,...images,...images,...images,...images]
     return (
         <div className={style.apartmentCard}>
-            <div>
-               <ImageSwitcher images={images}/>
-            </div>
+            <ImageSlider images={list}/>
             <div>
                 title: {title}
             </div>
