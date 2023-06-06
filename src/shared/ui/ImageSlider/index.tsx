@@ -12,15 +12,13 @@ interface IImageSwitcher {
 }
 
 const ImageSlider = ({images}: IImageSwitcher) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     if (!images) {
         return <div className={style.imageSwitch}>
             <Image src={EmptyImage} alt='not image'/>
         </div>
     }
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const visibleIndicatorsCount = Math.min(images.length, 5);
-    const visibleIndicators = images.slice(0, visibleIndicatorsCount);
 
     const handlePrev = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
@@ -40,13 +38,6 @@ const ImageSlider = ({images}: IImageSwitcher) => {
             {currentIndex < images.length - 1 &&
                 <div className={style.next} onClick={handleNext}><ArrowForwardIosIcon/></div>
             }
-            <div className={style.carouselIndicators}>
-                {visibleIndicators.map((_,indicatorIndex) => (
-                    <div key={indicatorIndex}
-                         className={`${style.indicator} ${currentIndex === indicatorIndex  ? style.active : ''}`}
-                    />
-                ))}
-            </div>
         </div>
     );
 };

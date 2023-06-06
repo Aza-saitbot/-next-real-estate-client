@@ -7,6 +7,7 @@ import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import CachedIcon from '@mui/icons-material/Cached';
 import ModalStyled from "@/shared/ui/ModalStyled/ModalStyled";
 import {useFormContext} from "react-hook-form";
+import MediaManagement from "@/entities/MediaManagement/MediaManagement";
 
 
 const VISIBLE_IMAGES = 6
@@ -45,6 +46,8 @@ const Gallery = ({onHandlerClearImages}: IGallery) => {
         )
     }
 
+    const list = [...images,...images,...images,...images,...images].map(i=> ({...i,id: Math.floor(Math.random() * i.id)}))
+
 
     return (
         <div className={s.gallery}>
@@ -77,11 +80,7 @@ const Gallery = ({onHandlerClearImages}: IGallery) => {
                     </div>
             </div>
             <ModalStyled onChangeStateOpen={onChangeStateOpen} open={open}>
-                Note that while using aria-labelledby is similar in this situation to using an HTML
-                element with the for attribute, there are some very important differences.
-                The aria-labelledby attribute only defines the accessible name. It doesn't provide any of
-                s other functionality, such as making clicking on the labeling element activate the input it is associ
-                ated with. That has to be added back in with JavaScript.
+               <MediaManagement onChangeStateOpen={onChangeStateOpen} images={list} />
             </ModalStyled>
         </div>
     );

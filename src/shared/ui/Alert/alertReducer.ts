@@ -21,14 +21,27 @@ export type AlertWithClosingType = {
   color?: string;
 };
 
+export type AlertTextWithLinkPayloadType = {
+  text:string
+  linkKeyword:string
+  linkPath:string
+}
+export type AlertTextWithLinkType = {
+  code?: number;
+  payload: AlertTextWithLinkPayloadType
+  color?: string;
+};
+
 export type AlertsModelType = {
   alerts: AlertType[];
   alertWithClosing: null | AlertWithClosingType
+  textWithLink: null | AlertTextWithLinkType
 };
 
 const initialState: AlertsModelType = {
   alerts: [],
-  alertWithClosing: null
+  alertWithClosing: null,
+  textWithLink: null
 };
 
 const generateId = () => nanoid();
@@ -48,6 +61,9 @@ const alertModel = createSlice({
     },
     setAlertWithClosing: (state, action: PayloadAction<null|AlertWithClosingType>) => {
       state.alertWithClosing=action.payload
+    },
+    setAlertTextWithLink: (state, action: PayloadAction<null | AlertTextWithLinkType>) => {
+      state.textWithLink = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -73,6 +89,6 @@ const alertModel = createSlice({
   },
 });
 
-export const { removeAlert, addAlertWithCustomText, setAlertWithClosing } = alertModel.actions;
+export const { removeAlert, addAlertWithCustomText, setAlertWithClosing, setAlertTextWithLink } = alertModel.actions;
 
 export const alertReducer = alertModel.reducer;
