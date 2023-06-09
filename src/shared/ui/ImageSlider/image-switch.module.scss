@@ -19,18 +19,27 @@
     transform: translateY(-50%);
 
   }
+  &:hover {
+    .prev{
+      display: block;
+    }
+    .next{
+      display: block;
+    }
+  }
 }
 
 .apartmentImage {
   width: 100%;
-  height: auto;
-  min-height: 300px;
+  height: 300px;
   object-fit: cover;
   border-radius: 10px;
+
 
 }
 
 .prev {
+  display: none;
   left: 15px;
   position: absolute;
   background-color: white;
@@ -46,6 +55,7 @@
 }
 
 .next {
+  display: none;
   right: 15px;
   position: absolute;
   background-color: white;

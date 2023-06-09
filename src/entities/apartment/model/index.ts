@@ -55,6 +55,16 @@ export const getOneApartment = createAsyncThunk<IApartment, string, { rejectValu
     }
 );
 
+export const previewImages = createAsyncThunk<Array<string>,  FormData, { rejectValue: number; }>(
+    'apartment/previewImages', async (requestOptions, { rejectWithValue }) => {
+        try {
+            return await api.createPreview(requestOptions)
+        } catch (e:any) {
+            return rejectWithValue(e.response.data.error_code)
+        }
+    }
+);
+
 const apartmentModel = createSlice({
     name: 'apartment',
     initialState,

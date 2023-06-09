@@ -1,4 +1,4 @@
-.wrapper{
+.wrapper {
   height: 400px;
   overflow-y: scroll;
 }
@@ -8,8 +8,6 @@
   gap: 24px;
   padding: 24px;
   position: relative;
-
-
 }
 
 .card {
@@ -32,8 +30,7 @@
 }
 .image {
   width: 100%;
-  height: auto;
-  min-height: 150px;
+  height: 150px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -81,4 +78,3 @@
   width: 35px;
 
 }
-

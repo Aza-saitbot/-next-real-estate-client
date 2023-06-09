@@ -6,12 +6,42 @@
     position: relative;
 
 }
-.empty{
+.emptyWrapper{
     display: grid;
     align-items: center;
     justify-content: center;
-    width: 800px;
-    height: 260px;
+    width: 100%;
+    height: 100%;
+}
+
+.wrapperImage{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.empty{
+    display: grid;
+    align-content: start;
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    image{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.emptyText{
+    display: grid;
+    justify-items: center;
+
+    button{
+        margin-top: 15px;
+    }
 }
 
 .list{
@@ -45,9 +75,14 @@
     height: 100%;
 
     button{
+        background-color: white;
         border-radius: 20px;
         span{
             margin-left: 5px;
+        }
+
+        &:hover{
+            background-color: #ECEFF3;
         }
     }
 

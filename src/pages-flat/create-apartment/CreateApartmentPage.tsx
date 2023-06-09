@@ -69,6 +69,7 @@ const CreateApartmentPage = ({editApartment}: EditApartmentProps) => {
     }
     const onHandlerSave = async (data: SchemaApartmentFormType) => {
         console.log('Submit data', data)
+        console.log('data',data)
         const payload = new FormData()
         payload.append('title', data.title)
         payload.append('currency', data.currency)
@@ -77,10 +78,11 @@ const CreateApartmentPage = ({editApartment}: EditApartmentProps) => {
         payload.append('categoryId', data.category)
         payload.append('employeeId', data.employee)
         payload.append('images', JSON.stringify(data.images))
-        const res = await dispatch(createApartment(payload))
-        if (res.meta.requestStatus === 'fulfilled') {
-            await router.push('/admin')
-        }
+        console.log('payload.',payload)
+        // const res = await dispatch(createApartment(payload))
+        // if (res.meta.requestStatus === 'fulfilled') {
+        //     await router.push('/admin')
+        // }
     }
 
     const onHandlerCreateField = () => {
@@ -88,7 +90,6 @@ const CreateApartmentPage = ({editApartment}: EditApartmentProps) => {
     }
 
     const onHandlerClearImages = () => {
-        console.log('onHandlerClearImages')
       methods.setValue('images', [])
     }
 
@@ -115,10 +116,7 @@ const CreateApartmentPage = ({editApartment}: EditApartmentProps) => {
                                 <div>
                                     <h3>Gallery</h3>
                                 </div>
-                                {editApartment
-                                    ? <Gallery {...methods} onHandlerClearImages={onHandlerClearImages}/>
-                                    : <DragBar/>
-                                }
+                               <Gallery {...methods} onHandlerClearImages={onHandlerClearImages}/>
                             </div>
                             <Button onClick={onHandlerCreateField} type='button' variant='outlined'>Добавить поле</Button>
                         </div>

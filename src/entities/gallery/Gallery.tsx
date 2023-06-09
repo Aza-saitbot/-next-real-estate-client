@@ -7,13 +7,15 @@ import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import CachedIcon from '@mui/icons-material/Cached';
 import ModalStyled from "@/shared/ui/ModalStyled/ModalStyled";
 import {useFormContext} from "react-hook-form";
-import MediaManagement from "@/entities/MediaManagement/MediaManagement";
-
-
-const VISIBLE_IMAGES = 6
-const style = {
-    backgroundColor:'white'
-}
+import {ButtonWrapper} from "@/shared/ui/ButtonWrapper/ButtonWrapper";
+import DraggableImageList from "@/entities/DraggableImageList/DraggableImageList";
+import DragBar from "@/shared/ui/DragBar/DragBar";
+import MediaManagement from "@/entities/MediaManagment/MediaManagement";
+import EmptyImage from "../../../public/assets/empty.png"
+import Image from "next/image";
+import AddIcon from "@mui/icons-material/Add";
+import EmptyListMedia from "@/entities/gallery/EmptyListMedia/EmptyListMedia";
+import MediaCover from "@/entities/gallery/MediaCover/MediaCover";
 
 interface IGallery {
     onHandlerClearImages: () => void
@@ -21,66 +23,33 @@ interface IGallery {
 
 const Gallery = ({onHandlerClearImages}: IGallery) => {
     const {getValues} = useFormContext()
-    const images:Array<IImage> = getValues('images')
-    const [listImages,setListImages]=useState<Array<IImage>>(images)
+    const images: Array<IImage> = getValues('images')
+    const [listImages, setListImages] = useState<Array<IImage>>(images)
     const [open, setOpen] = React.useState(false);
 
-    const isRemainingImages = images.length > VISIBLE_IMAGES
-    const remainingImages = isRemainingImages ?  images.length - VISIBLE_IMAGES : 0
 
-    const onChangeStateOpen = () => setOpen(!open);
+
+    const isEmptyListMedia = listImages.length === 0
+
+    const handlerCloseModal = () => setOpen(false);
+
+    const handlerOpenModal = () => {
+      setOpen(true)
+    }
 
     const clearImages = () => {
         onHandlerClearImages()
         setListImages([])
     }
 
-    console.log('GALLERY',images)
-    if (listImages.length === 0) {
-        return (
-            <div className={s.gallery}>
-                <div className={s.empty}>
-                    <h3>В галерее нет изображений</h3>
-                </div>
-            </div>
-        )
-    }
-
-    const list = [...images,...images,...images,...images,...images].map(i=> ({...i,id: Math.floor(Math.random() * i.id)}))
-
-
     return (
         <div className={s.gallery}>
-            <div className={s.list}>
-                {listImages.map(image =>
-                    <div key={image.id}>
-                        <img className={s.item} width={200} height={120}
-                             src={process.env.NEXT_PUBLIC_API_URL + image.filename}
-                             alt={`Image ${image.id}`}
-                        />
-                    </div>
-                )}
-                {isRemainingImages && <div className={s.remainingImages}><h3>+{remainingImages}</h3></div>}
-            </div>
-            <div className={s.actions}>
-                <div className={s.buttons}>
-                    <Button onClick={onChangeStateOpen} style={style} variant='outlined'><CachedIcon/> <span>Управлять медиа</span></Button>
-                    <Tooltip placement="top" title="Превью">
-                    <Button onClick={onChangeStateOpen} style={style}
-                            variant='outlined'>
-                        <OpenInFullIcon/>
-                    </Button>
-                    </Tooltip>
-                    <Tooltip placement="top" title="Очистить">
-                        <Button onClick={clearImages} style={style}
-                                variant='outlined'>
-                            <DeleteOutlineIcon/>
-                        </Button>
-                    </Tooltip>
-                    </div>
-            </div>
-            <ModalStyled onChangeStateOpen={onChangeStateOpen} open={open}>
-               <MediaManagement onChangeStateOpen={onChangeStateOpen} images={list} />
+            {isEmptyListMedia
+            ? <EmptyListMedia handlerOpenModal={handlerOpenModal}/>
+            : <MediaCover images={images} handlerCloseModal={handlerOpenModal} clearImages={clearImages}/>
+            }
+            <ModalStyled onChangeStateOpen={handlerCloseModal} open={open}>
+                <MediaManagement images={images} handlerCloseModal={handlerCloseModal}/>
             </ModalStyled>
         </div>
     );

@@ -1,13 +1,12 @@
-import { TFunction } from 'react-i18next';
-import { AlertTextWithLinkType, AlertType, AlertWithClosingType } from '../alertSlice';
-
+import {AlertTextWithLinkType, AlertType, AlertWithClosingType} from "@/shared/ui/Alert/alertReducer";
+import {TFunction} from "i18next";
 
 export const getStylesForAlert = (alert: AlertType | AlertWithClosingType |  AlertTextWithLinkType) => {
   if (alert.code) {
     return alert.code < 100000 ? '#F54242' : '#2CBA5F';
   }
   if (alert.color) {
-    return alert.color;
+    return alert.color === 'error' ? '#F54242' : '#2CBA5F'
   }
   return '#2CBA5F';
 };

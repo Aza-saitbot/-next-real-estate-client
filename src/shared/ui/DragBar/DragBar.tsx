@@ -3,9 +3,12 @@ import s from './style.module.scss';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import {useFormContext} from "react-hook-form";
 import {IImage} from "@/shared/api/apartments/model";
+import {useAppDispatch} from "@/app/store/store";
+import {previewImages} from "@/entities/apartment/model";
 
 const DragBar = () => {
     const {setValue} = useFormContext()
+    const dispatch = useAppDispatch()
     const [drag, setDrag] = useState(false)
     const [currentFiles, setCurrentFiles] = useState<Array<File>>([])
 
@@ -32,20 +35,22 @@ const DragBar = () => {
         setValue('images', files)
     }
 
-    const onDropHandler = (e: React.DragEvent<HTMLDivElement>) => {
+    const onDropHandler = async (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault()
         // @ts-ignore
         let files = [...e.dataTransfer.files]
+        const formData = new FormData()
+        formData.append("images", JSON.stringify(files))
+        const images = await dispatch(previewImages(formData))
+
+        console.log('images',images)
 
         setFiles(files)
         setDrag(false)
+
     };
 
-    const removeImage = (removeFile: File) => {
-        setFiles(currentFiles.filter((f: File) => f !== removeFile))
-    }
-
-
+console.log('drag',drag)
     return (
         <div className={s.dragBar}>
             <div className={s.item}>
@@ -64,20 +69,6 @@ const DragBar = () => {
                                 onDragOver={e => dragStartHandler(e)}
                                 className={s.move}>
                                 <div>
-                                    <div className={s.preview}>
-                                        {currentFiles.map((i, index) => {
-                                            let imgUrl = URL.createObjectURL(i)
-                                            return (
-                                                <div key={index} className={s.previewItem}>
-                                                    <div className={s.previewItemImg}>
-                                                        <img src={imgUrl} alt='image'/>
-                                                        <DeleteOutlineOutlinedIcon onClick={() => removeImage(i)}
-                                                            fontSize={"small"} className={s.previewItemImgIcon}/>
-                                                    </div>
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
                                     {currentFiles.length === 0 &&
                                         <div className={s.moveTitle}>Перетащите файлы, чтобы загрузить их</div>
                                     }

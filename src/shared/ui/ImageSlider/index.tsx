@@ -8,15 +8,15 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
 interface IImageSwitcher {
-    images?: IImage[]
+    images: IImage[]
 }
 
 const ImageSlider = ({images}: IImageSwitcher) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    if (!images) {
+    if (images.length === 0) {
         return <div className={style.imageSwitch}>
-            <Image src={EmptyImage} alt='not image'/>
+            <Image height={300} width={300} className={style.apartmentImage} src={EmptyImage} alt='not image'/>
         </div>
     }
 

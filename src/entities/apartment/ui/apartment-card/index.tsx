@@ -6,11 +6,9 @@ import ImageSlider from "@/shared/ui/ImageSlider";
 import useResizeObserver from "@/shared/hooks/useResizeObserver";
 
 const ApartmentCard = ({title,price,images,address}:IApartment) => {
-
-    const list = [...images,...images,...images,...images,...images,...images,...images]
     return (
         <div className={style.apartmentCard}>
-            <ImageSlider images={list}/>
+            <ImageSlider images={images}/>
             <div>
                 title: {title}
             </div>
