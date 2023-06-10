@@ -4,18 +4,16 @@ import {Button} from "@mui/material";
 import {useRouter} from "next/router";
 import TableApartments from "@/entities/admin/ui/TableApartments/table-apartments";
 import {IApartment} from "@/shared/api/apartments/model";
-import {useAppSelector} from "@/app/store/store";
 
-
-interface IAdminPage {
+interface IApartmentsPage {
     listApartments?: IApartment[] | undefined
 }
-const AdminPage = ({listApartments}:IAdminPage) => {
+const ApartmentsPage = ({listApartments}:IApartmentsPage) => {
     const router = useRouter()
 
 
     const onRedirectCreateApartment = async () => {
-        await router.push('/admin/create-apartment', '/admin/create-apartment', { locale:router.locale })
+        await router.push('/apartments/create', '/apartments/create', { locale:router.locale })
     }
     return (
         <div className={s.admin}>
@@ -28,4 +26,4 @@ const AdminPage = ({listApartments}:IAdminPage) => {
     );
 };
 
-export default AdminPage;
+export default ApartmentsPage;

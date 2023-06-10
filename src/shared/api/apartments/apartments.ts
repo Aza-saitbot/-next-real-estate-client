@@ -1,12 +1,10 @@
 import {IApartment} from "@/shared/api/apartments/model";
 import axios from "@/shared/api/core/axios";
 import {
-    CreateApartmentDTO,
     IParamsGetApartments,
-    IParamsGetOneApartment,
     ResponseGetApartments
 } from "@/shared/api/apartments/dto/apartment-dto";
-import {setApartments} from "@/entities/apartment/model";
+import {setApartments, uploadImages} from "@/entities/apartment/model";
 
 export const getAllApartmentsAPI = async (): Promise<IApartment[]> =>
     (await axios.get<IApartment[]>('/apartment')).data
@@ -28,3 +26,6 @@ export const createApartmentAPI = async (requestOptions: FormData): Promise<IApa
 
 export const getOneApartmentAPI = async (id: string): Promise<IApartment> =>
     (await axios.get<IApartment>(`/apartment/${id}`)).data
+
+export const uploadImagesAPI = async (images:FormData): Promise<Array<string>> =>
+    (await axios.post<Array<string>>('upload/images',images)).data

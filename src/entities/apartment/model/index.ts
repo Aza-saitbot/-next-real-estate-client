@@ -4,12 +4,9 @@ import {IEmployee} from "@/shared/api/employee/model";
 import {ICategory} from "@/shared/api/category/model";
 import {RootState} from "@/app/store/types";
 import {HYDRATE} from "next-redux-wrapper";
-import {
-    CreateApartmentDTO,
-    IParamsGetOneApartment,
-    ResponseGetApartments
-} from "@/shared/api/apartments/dto/apartment-dto";
+import {ResponseGetApartments} from "@/shared/api/apartments/dto/apartment-dto";
 import * as api from "@/shared/api";
+import {CreateEditApartmentFormType} from "@/pages-flat/create-apartment/CreateApartmentPage";
 
 
 export type ApartmentModelType = {
@@ -25,10 +22,48 @@ const initialState: ApartmentModelType = {
     categories:[]
 }
 
-export const createApartment = createAsyncThunk<IApartment,  FormData, { rejectValue: number; }>(
+export const createApartment = createAsyncThunk<IApartment,  CreateEditApartmentFormType, { rejectValue: number; }>(
     'apartment/createApartment', async (requestOptions, { rejectWithValue }) => {
         try {
-            return await api.apartments.createApartmentAPI(requestOptions)
+            const payload = new FormData()
+            payload.append('title', requestOptions.title)
+            payload.append('currency', requestOptions.currency)
+            payload.append('price', requestOptions.price.toString())
+            payload.append('address', requestOptions.address)
+            payload.append('categoryId', requestOptions.category)
+            payload.append('employeeId', requestOptions.employee)
+            payload.append('images', JSON.stringify(requestOptions.images))
+            return await api.apartments.createApartmentAPI(payload)
+        } catch (e:any) {
+            return rejectWithValue(e.response.data.error_code)
+        }
+    }
+);
+
+export const updateApartment = createAsyncThunk<IApartment,  CreateEditApartmentFormType, { rejectValue: number; }>(
+    'apartment/updateApartment', async (requestOptions, { rejectWithValue }) => {
+        try {
+            const payload = new FormData()
+            payload.append('title', requestOptions.title)
+            payload.append('currency', requestOptions.currency)
+            payload.append('price', requestOptions.price.toString())
+            payload.append('address', requestOptions.address)
+            payload.append('categoryId', requestOptions.category)
+            payload.append('employeeId', requestOptions.employee)
+            payload.append('images', JSON.stringify(requestOptions.images))
+            return await api.apartments.createApartmentAPI(payload)
+        } catch (e:any) {
+            return rejectWithValue(e.response.data.error_code)
+        }
+    }
+);
+
+export const uploadImages = createAsyncThunk<Array<string>,  FileList, { rejectValue: number; }>(
+    'apartment/uploadImages', async (requestOptions, { rejectWithValue }) => {
+        try {
+            const formData = new FormData()
+            formData.append("images", JSON.stringify(requestOptions))
+            return await api.apartments.uploadImagesAPI(formData)
         } catch (e:any) {
             return rejectWithValue(e.response.data.error_code)
         }
@@ -49,16 +84,6 @@ export const getOneApartment = createAsyncThunk<IApartment, string, { rejectValu
     'apartment/getOneApartment', async (id, { rejectWithValue }) => {
         try {
             return await api.apartments.getOneApartmentAPI(id)
-        } catch (e:any) {
-            return rejectWithValue(e.response.data.error_code)
-        }
-    }
-);
-
-export const previewImages = createAsyncThunk<Array<string>,  FormData, { rejectValue: number; }>(
-    'apartment/previewImages', async (requestOptions, { rejectWithValue }) => {
-        try {
-            return await api.createPreview(requestOptions)
         } catch (e:any) {
             return rejectWithValue(e.response.data.error_code)
         }

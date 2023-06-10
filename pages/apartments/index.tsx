@@ -2,7 +2,7 @@ import React from 'react';
 import {wrapper} from "@/app/store/store";
 import * as api from '@/shared/api';
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-import AdminPage from "@/pages-flat/admin/AdminPage";
+import ApartmentsPage from "@/pages-flat/ApartmentsPage/ApartmentsPage";
 import Header from "@/widgets/Header";
 import Alert from "@/shared/ui/Alert/Alert";
 import {GetServerSidePropsType} from "@/shared/types/types";
@@ -10,12 +10,12 @@ import {IApartment} from "@/shared/api/apartments/model";
 import {setApartments} from "@/entities/apartment/model";
 import {getCategoriesEmployees} from "@/shared/api/apartments/getCategoriesEmployees";
 
-const Admin = (listApartments?:IApartment[]) => {
+const Apartments = (listApartments?:IApartment[]) => {
     return (
         <>
             <Alert/>
             <Header/>
-            <AdminPage listApartments={listApartments}/>
+            <ApartmentsPage listApartments={listApartments}/>
         </>
     );
 };
@@ -60,4 +60,4 @@ export const getServerSideProps = wrapper.getServerSideProps(async (ctx: GetServ
     }
 })
 
-export default Admin
+export default Apartments

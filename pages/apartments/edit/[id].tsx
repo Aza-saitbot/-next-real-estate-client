@@ -9,7 +9,7 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {getCategoriesEmployees} from "@/shared/api/apartments/getCategoriesEmployees";
 import Alert from "@/shared/ui/Alert/Alert";
 import CreateApartmentPage from "@/pages-flat/create-apartment/CreateApartmentPage";
-import Header from "../../src/widgets/Header";
+import Header from "@/widgets/Header";
 import {GetServerSidePropsType} from "@/shared/types/types";
 import {IApartment} from "@/shared/api/apartments/model";
 import {getOneApartment} from "@/entities/apartment/model";
@@ -53,7 +53,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (ctx: GetServ
         if (payload === 8) {
             return {
                 redirect: {
-                    destination: `/${ctx.locale}/admin`,
+                    destination: `/${ctx.locale}/apartments`,
                     locale: true,
                     permanent: false
                 },
@@ -71,7 +71,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (ctx: GetServ
     } catch (e) {
         return {
             redirect: {
-                destination: `/${ctx.locale}/admin`,
+                destination: `/${ctx.locale}/apartments`,
                 locale: true,
                 permanent: false
             },

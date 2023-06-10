@@ -3,20 +3,6 @@ import {DataGrid, GridCellParams, GridColDef, GridValueGetterParams} from '@mui/
 import {EditableCell} from "@/entities/admin/ui/EditableCell/EditableCell";
 import {useRouter} from "next/router";
 import {useAppSelector} from "@/app/store/store";
-import {IApartment} from "@/shared/api/apartments/model";
-
-const rows = [
-    { id: 117, lastName: 'Нажми сюда', title: '117 Пользователь', age: 35 },
-    { id: 2, lastName: 'Lannister', title: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', title: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', title: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', title: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', title: null, age: 150 },
-    { id: 7, lastName: 'Clifford', title: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', title: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', title: 'Harvey', age: 65 },
-];
-
 
 const TableApartments = () => {
     const router = useRouter()
@@ -25,9 +11,8 @@ const TableApartments = () => {
     // const categories = useAppSelector(state => state.apartment.categories)
 
 
-
-     const handleSave = async (id: number) => {
-        await router.push(`/admin/${id}`)
+     const handlerEditApartment = async (id: number) => {
+        await router.push(`/apartments/edit/${id}`)
     };
     // categoryId: number
     // employeeId: number
@@ -36,7 +21,7 @@ const TableApartments = () => {
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'title', headerName: 'Заголовок', width: 200,
             renderCell: (params: GridCellParams) => (
-                <EditableCell value={params.value as string} id={params.id as number} onSave={handleSave} />
+                <EditableCell value={params.value as string} id={params.id as number} handlerEditApartment={handlerEditApartment} />
             ),
         },
         { field: 'price', headerName: 'Цена', type:'number', width: 100 },

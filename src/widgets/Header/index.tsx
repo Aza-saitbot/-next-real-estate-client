@@ -10,8 +10,9 @@ const Header = () => {
     const {asPath,locale} = router
     const { t,i18n } = useTranslation()
     const user = useAppSelector(state => state.user.user)
+
     const onHandlerExit = async () => {
-        await router.push('/admin','/admin',{locale})
+        await router.push('/apartments','/apartments',{locale})
     }
 
     const onLogin = async () => {
@@ -21,6 +22,7 @@ const Header = () => {
     const onHome = async () => {
         await router.push('/','/',{locale})
     }
+
     return (
         <div className={style.header}>
             <div>

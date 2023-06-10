@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './../styles.module.scss';
+import s from './styles.module.scss';
 import {Button} from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import {ButtonWrapper} from "@/shared/ui/ButtonWrapper/ButtonWrapper";

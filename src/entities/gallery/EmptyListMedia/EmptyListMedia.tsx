@@ -11,22 +11,16 @@ type ButtonWrapperProps = {
 }
 const EmptyListMedia = ({handlerOpenModal}:ButtonWrapperProps) => {
     return (
-        <>
-            <div className={s.emptyWrapper}>
+            <div onClick={handlerOpenModal}  className={s.emptyWrapper}>
                 <div className={s.empty}>
-                    <div className={s.wrapperImage}>
-                        <Image height={120} width={120} src={EmptyImage}/>
-                    </div>
                     <div className={s.emptyText}>
-                        <div>Добавьте медиафайлы</div>
-                        <div>Загрузите в галерею фото</div>
-                        <Button  onClick={handlerOpenModal} variant="contained">
+                        <Button  variant="text">
                             <AddIcon className={s.addIcon}/>Добавить медиа
                         </Button>
+                        <div>Выберите изображение для добавления</div>
                     </div>
                 </div>
             </div>
-        </>
     );
 };
 

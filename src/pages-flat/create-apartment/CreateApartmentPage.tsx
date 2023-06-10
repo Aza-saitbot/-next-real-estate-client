@@ -9,13 +9,13 @@ import {IApartment, IImage} from "@/shared/api/apartments/model";
 import Input from "@/shared/ui/Input";
 import DragBar from "@/shared/ui/DragBar/DragBar";
 import {useRouter} from "next/router";
-import {EditApartmentProps} from "../../../pages/admin/[id]";
+import {EditApartmentProps} from "../../../pages/apartments/edit/[id]";
 import {createApartment} from "@/entities/apartment/model";
 import Gallery from "@/entities/gallery/Gallery";
 
 const listCurrency = ['USD', 'EUR', 'RUB', 'TRY'].map(currency => ({value: currency, name: currency}))
 
-type SchemaApartmentFormType = {
+export type CreateEditApartmentFormType = {
     title: string
     currency: string
     price:number
@@ -49,7 +49,7 @@ const CreateApartmentPage = ({editApartment}: EditApartmentProps) => {
         ? getInitialValues(employees,editApartment.employeeId)
         : 'NOT_SELECTED'
 
-    const defaultValues: SchemaApartmentFormType = {
+    const defaultValues: CreateEditApartmentFormType = {
         title: editApartment ? editApartment.title : '',
         currency: editApartment?.currency ?? 'TRY',
         price: editApartment ? editApartment.price : 0,
@@ -58,31 +58,20 @@ const CreateApartmentPage = ({editApartment}: EditApartmentProps) => {
         employee: initialValueEmployee,
         images: editApartment?.images ?? []
     }
-    const methods = useForm<SchemaApartmentFormType>({
+    const methods = useForm<CreateEditApartmentFormType>({
         mode: 'onSubmit',
         defaultValues
     })
 
     const onHandlerReset = async () => {
         methods.reset(defaultValues)
-        await router.push('/admin')
+        await router.push('/apartments')
     }
-    const onHandlerSave = async (data: SchemaApartmentFormType) => {
-        console.log('Submit data', data)
-        console.log('data',data)
-        const payload = new FormData()
-        payload.append('title', data.title)
-        payload.append('currency', data.currency)
-        payload.append('price', data.price.toString())
-        payload.append('address', data.address)
-        payload.append('categoryId', data.category)
-        payload.append('employeeId', data.employee)
-        payload.append('images', JSON.stringify(data.images))
-        console.log('payload.',payload)
-        // const res = await dispatch(createApartment(payload))
-        // if (res.meta.requestStatus === 'fulfilled') {
-        //     await router.push('/admin')
-        // }
+    const onHandlerSave = async (data: CreateEditApartmentFormType) => {
+        const res = await dispatch(createApartment(data))
+        if (res.meta.requestStatus === 'fulfilled') {
+            await router.push('/apartments')
+        }
     }
 
     const onHandlerCreateField = () => {

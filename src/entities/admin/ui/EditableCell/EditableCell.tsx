@@ -5,9 +5,9 @@ import s from "./styles.module.scss";
 type EditableCellProps = {
     id:number
     value: string;
-    onSave: (id: number) => void;
+    handlerEditApartment: (id: number) => void;
 }
-export const EditableCell = ({ onSave,id,value }:EditableCellProps) => {
+export const EditableCell = ({ handlerEditApartment,id,value }:EditableCellProps) => {
     const [isHovered, setHovered] = useState(false);
 
     const handleMouseEnter = () => {
@@ -19,7 +19,7 @@ export const EditableCell = ({ onSave,id,value }:EditableCellProps) => {
     };
 
     const handleButtonClick = () => {
-        onSave(id);
+        handlerEditApartment(id);
     };
 
     return (

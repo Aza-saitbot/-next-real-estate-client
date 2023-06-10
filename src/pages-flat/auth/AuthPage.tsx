@@ -44,7 +44,7 @@ const LoginPage = () => {
         if (data.fullName) payload.fullName = data.fullName
         const res = await dispatch(authThunk(payload))
         if (res.meta.requestStatus === 'fulfilled') {
-            await router.push('/admin', '/admin', {locale})
+            await router.push('/apartments', '/apartments', {locale})
         }
     }
 

@@ -1,160 +1,67 @@
 .dragBar {
-    display: grid;
-    justify-items: center;
-    height: 400px;
-    overflow-y: scroll;
+  display: grid;
+  justify-items: center;
+  height: 400px;
+  overflow-y: scroll;
 
 }
+
 .item {
-    position: relative;
-    width: 95%;
-
-    img {
-        position: absolute;
-        border-radius: 15px;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-    }
+  position: relative;
+  width: 95%;
 }
 
-.search {
-
-}
 .dropzone {
-    display: grid;
+  display: grid;
 }
 
 .area {
-    width: 100%;
-    height: 380px;
-    border: 1px dashed #5999ff;
-    display: grid;
-    align-items: center;
-    font-size: 24px;
+  width: 100%;
+  margin-top: 10px;
+  height: 380px;
+  background-color: #f4f7ff;
+  border: 1px dashed #5999ff;
+  display: grid;
+  align-items: center;
+  font-size: 24px;
+  justify-items: center;
+}
+
+.blockText {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  font-size: 16px;
+  font-weight: 530;
+  line-height: 24px;
+}
+
+.buttonDownload {
+  width: 180px;
+  height: 50px;
+  border-radius: 4px;
+  text-align: center;
+  margin: 25px;
+  cursor: pointer;
+  display: block;
+  font: 14px/50px Tahoma;
+  transition: all 0.18s ease-in-out;
+  border: 1px solid #5999ff;
+  background: linear-gradient(to top right, #5999ff, #5999ff 20%, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0)) top right/500% 500%;
+  color: #5999ff;
+
+
+  &:hover {
     color: white;
-    justify-items: center;
-
-    p {
-        background-color: #5999ff;
-        padding: 5px;
-        border-radius: 4px;
-        opacity: 0.7;
-    }
+    background-position: bottom left;
+  }
 }
 
-.move {
-    margin: 5px 0;
-    width: 100%;
-    min-height: 380px;
-    display: grid;
-    color: white;
-
-}
-
-.preview{
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(120px,1fr));
-    gap:5px;
-}
-.previewItem {
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    height: 120px;
-    border-radius: 4px;
-    background-color: white;
-}
-.previewItemImg {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    position: relative;
-    img{
-        position: absolute;
-        right: 0;
-        top:0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-}
-.previewItemImgIcon{
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    color: #ff5659;
-    background-color: white;
-    border: 1px solid #ff5659;
-    padding: 2px;
-    border-radius: 6px;
-}
-
-.waiter {
-    display: grid;
-    width: 100%;
-    min-height: 100%;
-    justify-items: center;
-    align-items: center;
-
-    border: 1px dashed #5999ff;
-    padding: 5px;
-    border-radius: 4px;
-    position: relative;
-
-    &:after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #f4f7ff;
-    }
-}
-
-.waiterTitle{
-    position: absolute;
-    z-index: 2;
-    font-size: 16px;
-    font-weight: 530;
-    line-height: 24px;
-    color: #162D3D;
-    display: grid;
-    gap: 10px;
-    align-items: center;
-    justify-items: center;
-}
-
-.buttonDownload{
-        width: 180px;
-        height: 50px;
-        border-radius: 4px;
-        text-align: center;
-        margin: 25px;
-        cursor: pointer;
-        display: block;
-        font: 14px/50px Tahoma;
-        transition: all 0.18s ease-in-out;
-        border: 1px solid #5999ff;
-        background: linear-gradient(to top right, #5999ff, #5999ff 20%, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0)) top right/500% 500%;
-        color: #5999ff;
-
-
-    &:hover {
-        color: white;
-        background-position: bottom left;
-    }
-
-
-}
 .my {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }

@@ -1,15 +1,11 @@
 import React from 'react';
-import {Store} from "@reduxjs/toolkit";
-import {RootState} from "@/app/store/types";
-import {AnyAction} from "redux";
-import {GetServerSidePropsContext} from "next";
 import {wrapper} from "@/app/store/store";
 import * as api from "@/shared/api";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {getCategoriesEmployees} from "@/shared/api/apartments/getCategoriesEmployees";
 import Alert from "@/shared/ui/Alert/Alert";
 import CreateApartmentPage from "@/pages-flat/create-apartment/CreateApartmentPage";
-import Header from "../../src/widgets/Header";
+import Header from "@/widgets/Header";
 import {GetServerSidePropsType} from "@/shared/types/types";
 
 const CreateApartment = () => {
