@@ -1,14 +1,14 @@
 import {useState} from 'react';
 import Image from "next/image";
 import style from './image-switch.module.scss';
-import {IImage} from "@/shared/api/apartments/model";
 import EmptyImage from '../../../../public/assets/not_image.jpeg';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import {useRouter} from "next/router";
 
 
 interface IImageSwitcher {
-    images: IImage[]
+    images: Array<string>
 }
 
 const ImageSlider = ({images}: IImageSwitcher) => {
@@ -28,7 +28,7 @@ const ImageSlider = ({images}: IImageSwitcher) => {
         setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
     };
 
-    const srcImage = process.env.NEXT_PUBLIC_API_URL + 'images/' + images[currentIndex]?.filename;
+    const srcImage = process.env.NEXT_PUBLIC_API_URL + 'images/' + images[currentIndex];
 
     return (
         <div className={style.imageSwitch}>

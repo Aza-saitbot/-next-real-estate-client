@@ -1,22 +1,24 @@
 import React, {useState} from 'react';
 import s from './styles.module.scss';
-import {IImage} from "@/shared/api/apartments/model";
 import {Button, Tooltip} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import OpenWithIcon from "@mui/icons-material/OpenWith";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import {useRouter} from "next/router";
 
 type DraggableImageListProps = {
-    images: Array<IImage>
+    images: Array<string>
     handlerCloseModal: () => void
     onHandlerAddMedia: () => void
 }
 const DraggableImageList = ({images, handlerCloseModal, onHandlerAddMedia}: DraggableImageListProps) => {
-    const [imageList, setImageList] = useState<Array<IImage>>(images);
+    const [imageList, setImageList] = useState<Array<string>>(images);
     const [draggedImageIndex, setDraggedImageIndex] = useState<number | null>(null);
     const [hoveredImageIndex, setHoveredImageIndex] = useState<number | null>(null);
-
+    const url = useRouter()
+    console.log('url',url)
+console.log('DraggableImageList',images)
     const handleDragStart = (event: React.DragEvent<HTMLDivElement>, index: number) => {
         event.dataTransfer.setData('imageIndex', index.toString());
         setDraggedImageIndex(index);
@@ -62,7 +64,7 @@ const DraggableImageList = ({images, handlerCloseModal, onHandlerAddMedia}: Drag
             <div className={s.list}>
                 {imageList.map((image, index) => (
                     <div
-                        key={image.id}
+                        key={image}
                         draggable
                         onDragStart={(event) => handleDragStart(event, index)}
                         onDragOver={(event) => handleDragOver(event, index)}
@@ -78,8 +80,8 @@ const DraggableImageList = ({images, handlerCloseModal, onHandlerAddMedia}: Drag
                     >
                         <>
                             <div className={s.number}>{index + 1}</div>
-                            <img className={s.image} src={process.env.NEXT_PUBLIC_API_URL + image.filename}
-                                 alt={`Image ${image.id}`}/>
+                            <img className={s.image} src={process.env.NEXT_PUBLIC_API_URL + image}
+                                 alt={`Image ${image}`}/>
                         </>
                         {hoveredImageIndex === index && (
                             <div className={s.hover}>

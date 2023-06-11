@@ -5,9 +5,7 @@ import {FormProvider, useForm} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "@/app/store/store";
 import Dropdown from "@/shared/ui/Dropdown";
 import {Button} from "@mui/material";
-import {IApartment, IImage} from "@/shared/api/apartments/model";
 import Input from "@/shared/ui/Input";
-import DragBar from "@/shared/ui/DragBar/DragBar";
 import {useRouter} from "next/router";
 import {EditApartmentProps} from "../../../pages/apartments/edit/[id]";
 import {createApartment} from "@/entities/apartment/model";
@@ -18,15 +16,15 @@ const listCurrency = ['USD', 'EUR', 'RUB', 'TRY'].map(currency => ({value: curre
 export type CreateEditApartmentFormType = {
     title: string
     currency: string
-    price:number
+    price: number
     category: string
     employee: string
-    address:string
-    images:Array<IImage>
+    address: string
+    fileNames: Array<string>
 }
 
-const getInitialValues = (list:Array<{value:string,name:string}>,itemValue:number) => {
-    const findItem = list.find(i=> i.value === String(itemValue))
+const getInitialValues = (list: Array<{ value: string, name: string }>, itemValue: number) => {
+    const findItem = list.find(i => i.value === String(itemValue))
     if (findItem) {
         return findItem.value
     }
@@ -38,15 +36,15 @@ const CreateApartmentPage = ({editApartment}: EditApartmentProps) => {
     const router = useRouter()
     const dispatch = useAppDispatch()
     const employees = useAppSelector(state => state.apartment.employees)
-        .map((employee) => ({value:String(employee.id), name:employee.name}))
+        .map((employee) => ({value: String(employee.id), name: employee.name}))
     const categories = useAppSelector(state => state.apartment.categories)
-        .map(category => ({value:String(category.id), name: category.name}))
+        .map(category => ({value: String(category.id), name: category.name}))
 
     const initialValueCategory = editApartment?.categoryId
-        ? getInitialValues(categories,editApartment.categoryId)
+        ? getInitialValues(categories, editApartment.categoryId)
         : 'NOT_SELECTED'
     const initialValueEmployee = editApartment?.employeeId
-        ? getInitialValues(employees,editApartment.employeeId)
+        ? getInitialValues(employees, editApartment.employeeId)
         : 'NOT_SELECTED'
 
     const defaultValues: CreateEditApartmentFormType = {
@@ -56,19 +54,22 @@ const CreateApartmentPage = ({editApartment}: EditApartmentProps) => {
         address: editApartment?.address ?? '',
         category: initialValueCategory,
         employee: initialValueEmployee,
-        images: editApartment?.images ?? []
+        fileNames: editApartment?.fileNames ?? []
     }
     const methods = useForm<CreateEditApartmentFormType>({
         mode: 'onSubmit',
         defaultValues
     })
 
+
     const onHandlerReset = async () => {
         methods.reset(defaultValues)
         await router.push('/apartments')
     }
     const onHandlerSave = async (data: CreateEditApartmentFormType) => {
+        console.log('data',data)
         const res = await dispatch(createApartment(data))
+        console.log('CREATE APARTMENT',res)
         if (res.meta.requestStatus === 'fulfilled') {
             await router.push('/apartments')
         }
@@ -76,10 +77,6 @@ const CreateApartmentPage = ({editApartment}: EditApartmentProps) => {
 
     const onHandlerCreateField = () => {
 
-    }
-
-    const onHandlerClearImages = () => {
-      methods.setValue('images', [])
     }
 
     return (
@@ -105,9 +102,10 @@ const CreateApartmentPage = ({editApartment}: EditApartmentProps) => {
                                 <div>
                                     <h3>Gallery</h3>
                                 </div>
-                               <Gallery {...methods} onHandlerClearImages={onHandlerClearImages}/>
+                                <Gallery />
                             </div>
-                            <Button onClick={onHandlerCreateField} type='button' variant='outlined'>Добавить поле</Button>
+                            <Button onClick={onHandlerCreateField} type='button' variant='outlined'>Добавить
+                                поле</Button>
                         </div>
                     </form>
                 </FormProvider>

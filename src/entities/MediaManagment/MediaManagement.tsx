@@ -1,19 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import s from './styles.module.scss';
-import {IImage} from "@/shared/api/apartments/model";
-import {Button, Tooltip} from "@mui/material";
+import {Button} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-import OpenWithIcon from "@mui/icons-material/OpenWith";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DraggableImageList from "@/entities/DraggableImageList/DraggableImageList";
 import DragBar from "@/shared/ui/DragBar/DragBar";
+import {useFormContext} from "react-hook-form";
 
 type DraggableImageListProps = {
-    images: Array<IImage>
     handlerCloseModal: () => void
 }
-const MediaManagement = ({images, handlerCloseModal}: DraggableImageListProps) => {
+const MediaManagement = ({handlerCloseModal}: DraggableImageListProps) => {
+    const {getValues} = useFormContext()
+    const images: Array<string> = getValues('fileNames')
     const [modeManagement, setModeManagement] = useState<'list' | 'add'>('list')
     const isModeList = modeManagement === 'list'
 
@@ -31,6 +30,10 @@ const MediaManagement = ({images, handlerCloseModal}: DraggableImageListProps) =
         } else {
             handlerCloseModal()
         }
+    }
+
+    const handlerSuccessDownload = () => {
+        setModeManagement('list')
     }
 
     useEffect(()=>{
@@ -60,7 +63,7 @@ const MediaManagement = ({images, handlerCloseModal}: DraggableImageListProps) =
                 {isModeList
                     ? <DraggableImageList onHandlerAddMedia={onHandlerAddMedia} handlerCloseModal={handlerCloseModal}
                                           images={images}/>
-                    : <DragBar/>
+                    : <DragBar handlerSuccessDownload={handlerSuccessDownload} />
                 }
             </div>
             <div className={s.footer}>

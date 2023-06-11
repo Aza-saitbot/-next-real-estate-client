@@ -4,7 +4,11 @@ import {useFormContext} from "react-hook-form";
 import {useAppDispatch} from "@/app/store/store";
 import {uploadImages} from "@/entities/apartment/model";
 
-const DragBar = () => {
+
+type DragBarProps = {
+    handlerSuccessDownload: () => void
+}
+const DragBar = ({handlerSuccessDownload}:DragBarProps) => {
     const {setValue} = useFormContext()
     const dispatch = useAppDispatch()
     const [drag, setDrag] = useState(false)
@@ -22,7 +26,9 @@ const DragBar = () => {
     const fetchDownloadImages = async (files: FileList) => {
         const res = await dispatch(uploadImages(files))
         if (res.meta.requestStatus === 'fulfilled' && res.payload && typeof res.payload !== 'number')  {
+            console.log('res.payload',res.payload)
             setValue('fileNames', res.payload)
+            handlerSuccessDownload()
         }
     }
 

@@ -32,7 +32,7 @@ export const createApartment = createAsyncThunk<IApartment,  CreateEditApartment
             payload.append('address', requestOptions.address)
             payload.append('categoryId', requestOptions.category)
             payload.append('employeeId', requestOptions.employee)
-            payload.append('images', JSON.stringify(requestOptions.images))
+            payload.append('images', JSON.stringify(requestOptions.fileNames))
             return await api.apartments.createApartmentAPI(payload)
         } catch (e:any) {
             return rejectWithValue(e.response.data.error_code)
@@ -50,7 +50,7 @@ export const updateApartment = createAsyncThunk<IApartment,  CreateEditApartment
             payload.append('address', requestOptions.address)
             payload.append('categoryId', requestOptions.category)
             payload.append('employeeId', requestOptions.employee)
-            payload.append('images', JSON.stringify(requestOptions.images))
+            payload.append('images', JSON.stringify(requestOptions.fileNames))
             return await api.apartments.createApartmentAPI(payload)
         } catch (e:any) {
             return rejectWithValue(e.response.data.error_code)
@@ -59,10 +59,12 @@ export const updateApartment = createAsyncThunk<IApartment,  CreateEditApartment
 );
 
 export const uploadImages = createAsyncThunk<Array<string>,  FileList, { rejectValue: number; }>(
-    'apartment/uploadImages', async (requestOptions, { rejectWithValue }) => {
+    'apartment/uploadImages', async (files, { rejectWithValue }) => {
         try {
             const formData = new FormData()
-            formData.append("images", JSON.stringify(requestOptions))
+            for (let i = 0; i < files.length; i++) {
+                formData.append('images', files[i]);
+            }
             return await api.apartments.uploadImagesAPI(formData)
         } catch (e:any) {
             return rejectWithValue(e.response.data.error_code)

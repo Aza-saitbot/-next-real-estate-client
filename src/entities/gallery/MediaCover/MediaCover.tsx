@@ -5,26 +5,32 @@ import CachedIcon from "@mui/icons-material/Cached";
 import {ButtonWrapper} from "@/shared/ui/ButtonWrapper/ButtonWrapper";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import {IImage} from "@/shared/api/apartments/model";
+import {useFormContext} from "react-hook-form";
 
 const VISIBLE_IMAGES = 6
 
 type MediaCoverProps = {
     handlerCloseModal:()=> void
-    clearImages:()=> void
-    images:Array<IImage>
 }
-const MediaCover = ({handlerCloseModal,clearImages,images}:MediaCoverProps) => {
+const MediaCover = ({handlerCloseModal}:MediaCoverProps) => {
+    const {getValues,setValue} = useFormContext()
+    const images: Array<string> = getValues('fileNames')
     const isRemainingImages = images.length > VISIBLE_IMAGES
     const remainingImages = isRemainingImages ? images.length - VISIBLE_IMAGES : 0
+
+    const clearImages = () => {
+        setValue('fileNames', [])
+    }
+
+
     return (
         <>
             <div className={s.list}>
                 {images.map(image =>
-                    <div key={image.id}>
+                    <div key={image}>
                         <img className={s.item} width={200} height={120}
-                             src={process.env.NEXT_PUBLIC_API_URL + image.filename}
-                             alt={`Image ${image.id}`}
+                             src={process.env.NEXT_PUBLIC_API_URL + image}
+                             alt={`Image ${image}`}
                         />
                     </div>
                 )}

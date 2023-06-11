@@ -1,7 +1,4 @@
-export interface IImage {
-    filename: string
-    id: number
-}
+
 export interface IApartment {
     id: number
     title: string
@@ -10,5 +7,5 @@ export interface IApartment {
     categoryId: number
     employeeId: number
     address:string
-    images:Array<IImage>
+    fileNames:Array<string>
 }
