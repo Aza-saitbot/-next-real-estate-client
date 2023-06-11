@@ -28,4 +28,4 @@ export const getOneApartmentAPI = async (id: string): Promise<IApartment> =>
     (await axios.get<IApartment>(`/apartment/${id}`)).data
 
 export const uploadImagesAPI = async (images:FormData): Promise<Array<string>> =>
-    (await axios.post<Array<string>>('upload/images',images)).data
+    (await axios.post<Array<string>>('files/upload',images)).data

@@ -28,7 +28,8 @@ const ImageSlider = ({images}: IImageSwitcher) => {
         setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
     };
 
-    const srcImage = process.env.NEXT_PUBLIC_API_URL + images[currentIndex]?.filename;
+    const srcImage = process.env.NEXT_PUBLIC_API_URL + 'images/' + images[currentIndex]?.filename;
+
     return (
         <div className={style.imageSwitch}>
             {currentIndex > 0 &&

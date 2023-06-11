@@ -4,7 +4,6 @@ import {checkAuth} from "./checkAuth"
 import {apartments} from "./apartments"
 import {employee} from "./employee"
 import {category} from "./category"
-import {createPreview} from "./preview/preview"
 
 
 export {
@@ -13,6 +12,5 @@ export {
     checkAuth,
     apartments,
     employee,
-    category,
-    createPreview
+    category
 }
